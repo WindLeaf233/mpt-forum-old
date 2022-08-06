@@ -1,0 +1,18 @@
+[
+  {
+    "value": "time",
+    "text": "按时间（新->旧）"
+  },
+  {
+    "value": "time-reversed",
+    "text": "按时间（旧->新）"
+  },
+  {
+    "value": "like",
+    "text": "按顶的次数"
+  },
+  {
+    "value": "dislike",
+    "text": "按踩的次数"
+  }
+]
