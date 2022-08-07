@@ -12,6 +12,7 @@ export default new Vuex.Store({
         is_admin: false,
         username: '',
         email: '',
+        user_id: '',
         message_amount_num: 0
       }
     }

@@ -26,6 +26,7 @@ export default {
                 is_logined: true,
                 is_admin: data.data.is_admin,
                 username: data.data.username,
+                user_id: data.data.user_id,
                 email: data.data.email,
                 message_amount_num: 0
               }
@@ -64,6 +65,7 @@ export default {
                 is_logined: true,
                 is_admin: data.data.is_admin,
                 username: data.data.username,
+                user_id: data.data.user_id,
                 email: data.data.email,
                 message_amount_num: 0
               })
@@ -84,6 +86,7 @@ export default {
         is_logined: false,
         is_admin: false,
         username: '',
+        user_id: '',
         email: '',
         message_amount_num: 0
       })
