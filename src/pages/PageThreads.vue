@@ -2,8 +2,8 @@
   <div>
     <TabBar @update="update_selector($event)"></TabBar>
     <ThreadSkeleton v-if="is_loading"></ThreadSkeleton>
-    <ThreadContents v-if="!is_loading" ref="content" :page_elements="page_elements"></ThreadContents>
-    <ThreadPagination :total="total_threads" :per_page="settings.per_page" :current_page="page"></ThreadPagination>
+    <ThreadContents v-if="!is_loading" ref="content" :page_elements="threads"></ThreadContents>
+    <ThreadPagination :total="threads.length" :per_page="settings.per_page" :current_page="page"></ThreadPagination>
   </div>
 </template>
 
@@ -12,21 +12,23 @@
   import ThreadContents from '@/components/thread/main/ThreadContents.vue'
   import ThreadPagination from '@/components/thread/main/ThreadPagination.vue'
   import TabBar from '@/components/thread/main/TabBar.vue'
+
+  import request from '@/mixins/request.js'
   
   const settings = require('@/data/settings.json')
-  const threads = require('@/data/thread/threads.json')
   
   export default {
     name: 'PageThreads',
+    mixins: [request],
     components: {
       ThreadSkeleton, ThreadContents,
       ThreadPagination,
       TabBar
     },
-    props: ['page', 'page_elements'],
     data() {
       return {
         is_loading: false,
+        threads: [],
         settings
       }
     },
@@ -37,9 +39,14 @@
       }
     },
     computed: {
-      total_threads() {
-        return threads.length
+      page() {
+        return 1
       }
+    },
+    beforeMount() {
+      this.get('/thread/list', (data) => {
+        this.threads = data.data.threads
+      })
     }
   }
 </script>

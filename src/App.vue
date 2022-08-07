@@ -7,9 +7,13 @@
 
 <script>
   import NavBar from '@/components/NavBar.vue'
+  import PageThreadDetail from '@/pages/PageThreadDetail.vue'
+  import router from '@/router'
+  import request from '@/mixins/request.js'
   
   export default {
     name: 'App',
+    mixins: [request],
     components: {
       NavBar
     },
@@ -21,12 +25,31 @@
         console.log(`route: ${from_path} -> ${to_path}`)
       }
     },
-    mounted() {
+    beforeMount() {
       let account = JSON.parse(localStorage.getItem('account'))
       if (account !== null) {
         // 不为 null 说明 localStorage 存储着登录信息
         this.$store.commit('account', account)
       }
+    },
+    mounted() {
+      this.get('/thread/list', (data) => {
+        let threads = data.data.threads
+        threads.forEach(t => {
+          router.addRoute({
+            path: `/thread/${t.id}`,
+            component: PageThreadDetail,
+            props: {
+              tags: t.tags,
+              title: t.title,
+              desciption: t.description,
+              thread_id: t.id,
+              evaluation: t.evaluation
+            }
+          })
+        })
+        console.log(`成功加载 ${threads.length} 个帖子！`, router.options.routes)
+      })
     }
   }
 </script>

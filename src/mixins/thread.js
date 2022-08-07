@@ -1,7 +1,7 @@
-const threads = require('@/data/thread/threads.json')
-const threads_content = () => require('@/data/thread/threads_content.json')
+import request from '@/mixins/request.js'
 
 export default {
+  mixins: [request],
   methods: {
     get_node(target, node_name) {
       if (target.nodeName.toLowerCase() === node_name) {
@@ -17,27 +17,6 @@ export default {
       var id = thread.getAttribute('id')
       let thread_id = id.replace('thread', '')
       this.$router.push(`/thread/${thread_id}`)
-    },
-    
-    get_thread_with_id(id) {
-      for (var index in threads) {
-        let d = threads[index]
-        if (d.id === id) {
-          return d
-        }
-      }
-      return null
-    },
-    
-    get_thread_content_with_id(id) {
-      const _threads_content = threads_content()
-      for (var index in _threads_content) {
-        let content = _threads_content[index]
-        if (content.id === id) {
-          return content.content
-        }
-      }
-      return null
     },
     
     thumbs_up(id) {

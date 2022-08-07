@@ -11,15 +11,19 @@ export default {
     },
     
     async get(api_route, todo) {
-      await axios.get(`${settings.api}${api_route}`)
+      let api = `${settings.api}${api_route}`
+      await axios.get(api)
         .then((response) => {
+          console.log(`GET: ${api}`, response.data)
           todo(response.data)
         }).catch((error) => { this.catch_error(error) })
     },
     
     async post(api_route, _data, todo) {
-      await axios.post(`${settings.api}${api_route}`, _data)
+      let api = `${settings.api}${api_route}`
+      await axios.post(api, _data)
         .then((response) => {
+          console.log(`POST: ${api}`, response.data)
           todo(response.data)
         }).catch((error) => { this.catch_error(error) })
     }

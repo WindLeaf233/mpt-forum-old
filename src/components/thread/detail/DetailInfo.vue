@@ -3,27 +3,27 @@
     <div class="a-title">
       <b-tag
       class="thread-tag"
-      :type="judge_tag_type(d.tags.type)"
+      :type="judge_tag_type(thread.tags.type)"
       size="is-medium">
-        {{ find_text_with_value(type_options, d.tags.type) }}
+        {{ find_text_with_value(type_options, thread.tags.type) }}
       </b-tag>
       <b-tag
       class="thread-tag"
       type="is-info is-light"
       size="is-medium">
-        {{ find_text_with_value(version_options, d.tags.version) }}
+        {{ find_text_with_value(version_options, thread.tags.version) }}
       </b-tag>
       <b-tag
       class="thread-tag"
       v-if="!$device.mobile"
       size="is-medium">
-        {{ get_date_with_timestamp(d.timestamp) }}
+        {{ get_date_with_timestamp(thread.timestamp) }}
       </b-tag>
       <b-tag
       type="is-dark"
       class="thread-tag"
       size="is-medium">
-        {{ d.user.username }}
+        {{ thread.user.username }}
       </b-tag>
     </div>
   </div>
@@ -34,23 +34,28 @@
   import selector from '@/mixins/selector.js'
   import thread from '@/mixins/thread.js'
   import timestamp from '@/mixins/timestamp.js'
+  import request from '@/mixins/request.js'
   
   const type_options = require('@/data/selector/type_options.json')
   const version_options = require('@/data/selector/version_options.json')
   
   export default {
     name: 'DetailInfo',
-    mixins: [tag, selector, thread, timestamp],
+    mixins: [tag, selector, thread, timestamp, request],
     props: ['thread_id'],
-    computed: {
-      d() {
-        return this.get_thread_with_id(this.thread_id)
-      }
-    },
     data() {
       return {
-        type_options, version_options
+        type_options, version_options,
+        thread: {
+          tags: {},
+          user: {}
+        }
       }
+    },
+    beforeMount() {
+      this.get(`/thread/get/${this.thread_id}`, (data) => {
+        this.thread = data.data.thread
+      })
     }
   }
 </script>

@@ -1,7 +1,5 @@
 import timestamp from '@/mixins/timestamp.js'
 
-const threads = () => require('@/data/thread/threads.json')
-
 export default {
   mixins: [timestamp],
   methods: {
@@ -28,7 +26,8 @@ export default {
       
       // 交给后端
       console.log(selector)
-      return threads()
+      return []
+      // return threads()
     },
     
     sort_threads(filtered, sort) {
