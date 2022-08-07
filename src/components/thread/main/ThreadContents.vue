@@ -37,7 +37,7 @@
               v-if="!$device.mobile"
               class="thread-tag"
               size="is-medium">
-                {{ d.user.username }}
+                {{ d.userinfo.username }}
               </b-tag>
               <strong class="thread-title">{{ d.title }}</strong>
             </div>

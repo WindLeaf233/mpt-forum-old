@@ -23,7 +23,7 @@
       type="is-dark"
       class="thread-tag"
       size="is-medium">
-        {{ thread.user.username }}
+        {{ thread.userinfo.username }}
       </b-tag>
     </div>
   </div>
@@ -47,7 +47,7 @@
         type_options, version_options,
         thread: {
           tags: {},
-          user: {}
+          userinfo: {}
         }
       }
     },
