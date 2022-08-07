@@ -42,7 +42,6 @@
   export default {
     name: 'DetailInfo',
     mixins: [tag, selector, thread, timestamp, request],
-    props: ['thread_id'],
     data() {
       return {
         type_options, version_options,
@@ -52,10 +51,10 @@
         }
       }
     },
-    beforeMount() {
-      this.get(`/thread/get/${this.thread_id}`, (data) => {
-        this.thread = data.data.thread
-      })
+    methods: {
+      update(thread) {
+        this.thread = thread
+      }
     }
   }
 </script>

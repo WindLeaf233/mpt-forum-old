@@ -40,15 +40,12 @@
             path: `/thread/${t.id}`,
             component: PageThreadDetail,
             props: {
-              tags: t.tags,
-              title: t.title,
-              desciption: t.description,
               thread_id: t.id,
-              evaluation: t.evaluation
+              title: t.title,
+              evaluation: t.tevaluation
             }
           })
         })
-        console.log(`成功加载 ${threads.length} 个帖子！`, router.options.routes)
       })
     }
   }

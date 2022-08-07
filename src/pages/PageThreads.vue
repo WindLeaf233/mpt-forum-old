@@ -2,7 +2,7 @@
   <div>
     <TabBar @update="update_selector($event)"></TabBar>
     <ThreadSkeleton v-if="is_loading"></ThreadSkeleton>
-    <ThreadContents v-if="!is_loading" ref="content" :page_elements="threads"></ThreadContents>
+    <ThreadContents v-else ref="content" :page_elements="threads"></ThreadContents>
     <ThreadPagination :total="threads.length" :per_page="settings.per_page" :current_page="page"></ThreadPagination>
   </div>
 </template>
@@ -27,7 +27,7 @@
     },
     data() {
       return {
-        is_loading: false,
+        is_loading: true,
         threads: [],
         settings
       }
@@ -46,6 +46,7 @@
     beforeMount() {
       this.get('/thread/list', (data) => {
         this.threads = data.data.threads
+        this.is_loading = false
       })
     }
   }

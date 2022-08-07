@@ -23,8 +23,21 @@
   
   export default {
     name: 'DetailEvaluation',
-    props: ['thread_id', 'like', 'dislike'],
-    mixins: [thread]
+    mixins: [thread],
+    data() {
+      return {
+        thread_id: '',
+        like: '',
+        dislike: ''
+      }
+    },
+    methods: {
+      update(thread_id, like, dislike) {
+        this.thread_id = thread_id
+        this.like = like
+        this.dislike = dislike
+      }
+    }
   }
 </script>
 

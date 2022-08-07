@@ -19,7 +19,6 @@
   
   export default {
     name: 'DetailContent',
-    props: ['thread_id'],
     mixins: [thread],
     components: {
       MarkdownPreview
@@ -29,10 +28,10 @@
         content: ''
       }
     },
-    beforeMount() {
-      this.get(`/thread/get_content/${this.thread_id}`, (data) => {
-        this.content = data.data.content
-      })
+    methods: {
+      update(content) {
+        this.content = content
+      }
     }
   }
 </script>

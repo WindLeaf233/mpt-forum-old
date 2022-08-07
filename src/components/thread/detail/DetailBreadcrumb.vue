@@ -24,6 +24,16 @@
 <script>
   export default {
     name: 'DetailBreadcrumb',
-    props: ['tags', 'title', 'thread_id']
+    data() {
+      return {
+        title: '', thread_id: ''
+      }
+    },
+    methods: {
+      update(title, thread_id) {
+        this.title = title
+        this.thread_id = thread_id
+      }
+    }
   }
 </script>
