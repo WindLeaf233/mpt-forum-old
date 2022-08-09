@@ -33,6 +33,7 @@
       }
     },
     mounted() {
+      console.log(`process.env`, process.env)
       this.get('/thread/list', (data) => {
         let threads = data.data.threads
         threads.forEach(t => {
@@ -42,7 +43,7 @@
             props: {
               thread_id: t.id,
               title: t.title,
-              evaluation: t.tevaluation
+              evaluation: t.evaluation
             }
           })
         })
