@@ -22,7 +22,7 @@
         let to_path = to.path
         let from_path = from.path
         this.$store.commit('actived', to_path)
-        console.log(`route: ${from_path} -> ${to_path}`)
+        this.debug(`route: ${from_path} -> ${to_path}`)
       }
     },
     beforeMount() {
@@ -33,7 +33,7 @@
       }
     },
     created() {
-      console.log(`process.env`, process.env)
+      this.debug(`process.env`, process.env)
 
       function addRoutes(threads) {
         threads.forEach(t => {
@@ -49,14 +49,16 @@
         })
       }
 
-      if (this.$store.state.threads.length === 0) {
+      let threads = this.$store.state.threads
+      this.debug('1', threads, threads.length, threads.length === 0)
+      if (threads.length === 0) {
         this.get('/thread/list', (data) => {
-          let threads = data.data.threads
-          this.$store.commit('threads', threads)
-          addRoutes(threads)
+          let ts = data.data.threads
+          this.$store.commit('threads', ts)
+          addRoutes(ts)
         })
       } else {
-        addRoutes(this.$store.state.threads)
+        addRoutes(threads)
       }
     }
   }

@@ -22,7 +22,7 @@
     watch: {
       page: {
         handler(new_value, old_value) {
-          console.log(`page: ${old_value} -> ${new_value}`)
+          this.debug(`page: ${old_value} -> ${new_value}`)
           this.$router.push(`/threads/page${new_value}`)
         }
       }

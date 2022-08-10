@@ -1,8 +1,7 @@
-import utils from '@/mixins/utils.js'
 import request from '@/mixins/request.js'
 
 export default {
-  mixins: [utils, request],
+  mixins: [request],
   computed: {
     message_amount() {
       if (this.message_amount_num === 0) {
@@ -22,7 +21,7 @@ export default {
           { account, password },
           (data) => {
             if (data.code === 200) {
-              console.log(`login data:`, data.data)
+              this.debug(`login data:`, data.data)
               let account = {
                 is_logined: true,
                 is_admin: data.data.is_admin,
@@ -35,7 +34,7 @@ export default {
               localStorage.setItem('account', JSON.stringify(account))
               this.$store.commit('account', account)
               this.msg('is-success', `欢迎回来，${data.data.username}！`)
-              console.log(`user_id: ${data.data.id}`)
+              this.debug(`user_id: ${data.data.id}`)
               this.$router.push('/threads')
             } else {
               this.msg('is-danger', data.message)
@@ -72,7 +71,7 @@ export default {
                 message_amount_num: 0
               })
               this.msg('is-success', '注册成功！')
-              console.log(`user_id: ${data.data.id}`)
+              this.debug(`user_id: ${data.data.id}`)
               this.$router.push('/threads')
             } else {
               this.msg('is-danger', data.message)

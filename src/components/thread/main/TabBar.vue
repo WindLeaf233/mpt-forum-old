@@ -99,7 +99,7 @@
     watch: {
       current_tag_type: {
         handler(new_value, old_value) {
-          console.log(`type: ${old_value} -> ${new_value}`)
+          this.debug(`type: ${old_value} -> ${new_value}`)
           this.$emit('update', {
             selector: {
               filter: {
@@ -113,7 +113,7 @@
       },
       current_tag_version: {
         handler(new_value, old_value) {
-          console.log(`version: ${old_value} -> ${new_value}`)
+          this.debug(`version: ${old_value} -> ${new_value}`)
           this.$emit('update', {
             selector: {
               filter: {
@@ -127,7 +127,7 @@
       },
       current_sort: {
         handler(new_value, old_value) {
-          console.log(`sort: ${old_value} -> ${new_value}`)
+          this.debug(`sort: ${old_value} -> ${new_value}`)
           this.$emit('update', {
             selector: {
               filter: {

@@ -1,12 +1,11 @@
 import PageThreadDetail from '@/pages/PageThreadDetail.vue'
-import utils from '@/mixins/utils.js'
 import request from '@/mixins/request.js'
 import router from '@/router'
 
 const settings = require('@/data/settings.json')
 
 export default {
-  mixins: [utils, request],
+  mixins: [request],
   methods: {
     check_submit(data, that) {
       that.update_is_loading(true)
@@ -81,18 +80,20 @@ export default {
           content,
           timestamp: Date.now()
         }
-        console.log(`post data:`, post_data)
+        this.debug(`post data:`, post_data)
         this.post('/thread/post', post_data, (data) => {
           if (data.code === 200) {
             this.msg('is-success', '发帖成功！')
             let t = data.data.thread
+            let threads = this.$store.state.threads
+            threads.push(t)
             router.addRoute({
               path: `/thread/${t.id}`,
               component: PageThreadDetail,
               props: {
                 thread_id: t.id,
                 title: t.title,
-                evaluation: t.tevaluation
+                evaluation: t.evaluation
               }
             })
             this.$router.push(`/thread/${t.id}`)

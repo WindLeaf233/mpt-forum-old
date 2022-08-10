@@ -28,42 +28,64 @@
       }
     },
     mounted() {
-      let detail = this.$store.state.thread_details
-      let find = detail.find((s) => s.id === this.thread_id)
-      let that = this
+      let threads = this.$store.state.threads
+      let find = threads.find((s) => s.id === this.thread_id)
 
-      if (find) {
-        update(find)
+      let refs = this.$refs
+      refs.breadcrumb.update(find.title, find.id)
+      refs.info.update(find)
+      refs.evaluation.update(find.id, find.evaluation.like, find.evaluation.dislike)
+
+      let contents = this.$store.state.thread_contents
+      let find_content = contents.find((s) => s.id === find.id)
+      let push_content = (c) => refs.content.update(c)
+
+      if (find_content) {
+        push_content(find_content.content)
       } else {
-        this.get(`/thread/get/${this.thread_id}`, (data) => {
-          let thread = data.data.thread
-          detail.push(thread)
-          update(thread)
+        this.get(`/thread/get_content/${find.id}`, (content_data) => {
+          let data = content_data.data
+          contents.push(data)
+          push_content(data.content)
         })
       }
 
-      function update(thread) {
-        let refs = that.$refs
-        refs.breadcrumb.update(thread.title, that.thread_id)
-        refs.info.update(thread)
-        refs.evaluation.update(that.thread_id, thread.evaluation.like, thread.evaluation.dislike)
+      this.is_loading = false
 
-        let contents = that.$store.state.thread_contents
-        let find = contents.find((s) => s.id === that.thread_id)
-        let push_content = (c) => refs.content.update(c)
+      // let that = this
 
-        if (find) {
-          push_content(find.content)
-        } else {
-          that.get(`/thread/get_content/${that.thread_id}`, (content_data) => {
-            let data = content_data.data
-            contents.push(data)
-            push_content(data.content)
-          })
-        }
+      // if (find) {
+      //   update(find)
+      // } else {
+      //   this.get(`/thread/get/${this.thread_id}`, (data) => {
+      //     let thread = data.data.thread
+      //     threads.push(thread)
+      //     update(thread)
+      //   })
+      // }
 
-        that.is_loading = false
-      }
+      // function update(thread) {
+      //   let refs = that.$refs
+      //   refs.breadcrumb.update(thread.title, that.thread_id)
+      //   refs.info.update(thread)
+      //   refs.evaluation.update(that.thread_id, thread.evaluation.like, thread.evaluation.dislike)
+      //
+      //   let contents = that.$store.state.thread_contents
+      //   let find = contents.find((s) => s.id === that.thread_id)
+      //   let push_content = (c) => refs.content.update(c)
+      //
+      //   if (find) {
+      //     push_content(find.content)
+      //   } else {
+      //     that.get(`/thread/get_content/${that.thread_id}`, (content_data) => {
+      //       let data = content_data.data
+      //       contents.push(data)
+      //       push_content(data.content)
+      //     })
+      //   }
+      //
+      //   that.is_loading = false
+      // }
 
 
       // this.get(`/thread/get/${this.thread_id}`, (data) => {

@@ -1,8 +1,6 @@
 import axios from 'axios'
-import utils from '@/mixins/utils.js'
 
 export default {
-  mixins: [utils],
   methods: {
     catch_error(error) {
       this.msg('is-danger', `发生了错误：${error}，请报告管理员！`)
@@ -12,7 +10,7 @@ export default {
       let api = `${process.env.VUE_APP_API}${api_route}`
       await axios.get(api)
         .then((response) => {
-          console.log(`GET: ${api}`, response.data)
+          this.debug(`GET: ${api}`, response.data)
           todo(response.data)
         }).catch((error) => { this.catch_error(error) })
     },
@@ -21,7 +19,7 @@ export default {
       let api = `${process.env.VUE_APP_API}${api_route}`
       await axios.post(api, _data)
         .then((response) => {
-          console.log(`POST: ${api}`, response.data)
+          this.debug(`POST: ${api}`, response.data)
           todo(response.data)
         }).catch((error) => { this.catch_error(error) })
     }

@@ -24,11 +24,10 @@
 
 <script>
   import account from '@/mixins/account.js'
-  import utils from '@/mixins/utils.js'
-  
+
   export default {
     name: 'AuthRegister',
-    mixins: [utils, account],
+    mixins: [account],
     data() {
       return {
         username: '',

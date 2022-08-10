@@ -16,7 +16,6 @@ export default new Vuex.Store({
         message_amount_num: 0
       },
       threads: [],
-      thread_details: [],
       thread_contents: []
     }
   },
@@ -31,10 +30,6 @@ export default new Vuex.Store({
 
     threads(state, threads) {
       state.threads = threads
-    },
-
-    thread_details(state, thread_details) {
-      state.thread_details = thread_details
     }
   }
 })

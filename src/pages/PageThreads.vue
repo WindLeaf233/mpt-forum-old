@@ -44,12 +44,17 @@
       }
     },
     created() {
-      if (this.$store.state.threads.length === 0) {
+      let threads = this.$store.state.threads
+      this.debug('2', threads, threads.length, threads.length === 0)
+      if (threads.length === 0) {
         this.get('/thread/list', (data) => {
           this.threads = data.data.threads
+          for (let thread of this.threads) {
+            threads.push(thread)
+          }
         })
       } else {
-        this.threads = this.$store.state.threads
+        this.threads = threads
       }
       this.is_loading = false
     }

@@ -25,7 +25,7 @@ export default {
       // return filtered_and_sorted
       
       // 交给后端
-      console.log(selector)
+      this.debug(selector)
       return []
       // return threads()
     },
