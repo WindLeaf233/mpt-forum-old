@@ -12,9 +12,12 @@ export default new Vuex.Store({
         is_admin: false,
         username: '',
         email: '',
-        user_id: '',
+        id: '',
         message_amount_num: 0
-      }
+      },
+      threads: [],
+      thread_details: [],
+      thread_contents: []
     }
   },
   mutations: {
@@ -24,6 +27,14 @@ export default new Vuex.Store({
     
     actived(state, actived) {
       state.actived = actived
+    },
+
+    threads(state, threads) {
+      state.threads = threads
+    },
+
+    thread_details(state, thread_details) {
+      state.thread_details = thread_details
     }
   }
 })

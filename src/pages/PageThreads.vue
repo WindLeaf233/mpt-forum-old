@@ -43,11 +43,15 @@
         return 1
       }
     },
-    beforeMount() {
-      this.get('/thread/list', (data) => {
-        this.threads = data.data.threads
-        this.is_loading = false
-      })
+    created() {
+      if (this.$store.state.threads.length === 0) {
+        this.get('/thread/list', (data) => {
+          this.threads = data.data.threads
+        })
+      } else {
+        this.threads = this.$store.state.threads
+      }
+      this.is_loading = false
     }
   }
 </script>

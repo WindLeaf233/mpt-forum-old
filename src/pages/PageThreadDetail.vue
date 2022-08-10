@@ -27,20 +27,58 @@
         is_loading: true
       }
     },
-    beforeMount() {
-      this.get(`/thread/get/${this.thread_id}`, (data) => {
-        let thread = data.data.thread
-        let refs = this.$refs
-        refs.breadcrumb.update(thread.title, this.thread_id)
-        refs.info.update(thread)
-        refs.evaluation.update(this.thread_id, thread.evaluation.like, thread.evaluation.dislike)
-        
-        this.get(`/thread/get_content/${this.thread_id}`, (content_data) => {
-          refs.content.update(content_data.data.content)
+    mounted() {
+      let detail = this.$store.state.thread_details
+      let find = detail.find((s) => s.id === this.thread_id)
+      let that = this
+
+      if (find) {
+        update(find)
+      } else {
+        this.get(`/thread/get/${this.thread_id}`, (data) => {
+          let thread = data.data.thread
+          detail.push(thread)
+          update(thread)
         })
-        
-        this.is_loading = false
-      })
+      }
+
+      function update(thread) {
+        let refs = that.$refs
+        refs.breadcrumb.update(thread.title, that.thread_id)
+        refs.info.update(thread)
+        refs.evaluation.update(that.thread_id, thread.evaluation.like, thread.evaluation.dislike)
+
+        let contents = that.$store.state.thread_contents
+        let find = contents.find((s) => s.id === that.thread_id)
+        let push_content = (c) => refs.content.update(c)
+
+        if (find) {
+          push_content(find.content)
+        } else {
+          that.get(`/thread/get_content/${that.thread_id}`, (content_data) => {
+            let data = content_data.data
+            contents.push(data)
+            push_content(data.content)
+          })
+        }
+
+        that.is_loading = false
+      }
+
+
+      // this.get(`/thread/get/${this.thread_id}`, (data) => {
+      //   let thread = data.data.thread
+      //   let refs = this.$refs
+      //   refs.breadcrumb.update(thread.title, this.thread_id)
+      //   refs.info.update(thread)
+      //   refs.evaluation.update(this.thread_id, thread.evaluation.like, thread.evaluation.dislike)
+      //
+      //   this.get(`/thread/get_content/${this.thread_id}`, (content_data) => {
+      //     refs.content.update(content_data.data.content)
+      //   })
+      //
+      //   this.is_loading = false
+      // })
     }
   }
 </script>

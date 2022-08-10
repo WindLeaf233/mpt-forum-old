@@ -10,8 +10,8 @@ export default {
   methods: {
     check_submit(data, that) {
       that.update_is_loading(true)
-      var flag = true
-      
+      var flag = true;
+
       // 检查登录状态
       let is_logined = this.$store.state.account.is_logined
       if (!is_logined) {
@@ -60,7 +60,7 @@ export default {
       
       // 检查简介
       let description = data.description
-      if (description == '') {
+      if (description === '') {
         let tcontent = content.replace(/[\r\n]/g, '')
         if (tcontent.length >= 50) {
           description = tcontent.substring(0, 49)
@@ -70,17 +70,19 @@ export default {
       }
       
       if (flag) {
-        this.post('/thread/post', {
+        let post_data = {
           tags: selector,
           title,
           description,
           userinfo: {
             username: this.$store.state.account.username,
-            user_id: this.$store.state.account.user_id
+            id: this.$store.state.account.id
           },
           content,
           timestamp: Date.now()
-        }, (data) => {
+        }
+        console.log(`post data:`, post_data)
+        this.post('/thread/post', post_data, (data) => {
           if (data.code === 200) {
             this.msg('is-success', '发帖成功！')
             let t = data.data.thread
@@ -93,7 +95,7 @@ export default {
                 evaluation: t.tevaluation
               }
             })
-            this.$router.push('/threads')
+            this.$router.push(`/thread/${t.id}`)
             that.update_is_loading(false)
           } else {
             this.msg('is-danger', data.message)

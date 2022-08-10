@@ -32,10 +32,10 @@
         this.$store.commit('account', account)
       }
     },
-    mounted() {
+    created() {
       console.log(`process.env`, process.env)
-      this.get('/thread/list', (data) => {
-        let threads = data.data.threads
+
+      function addRoutes(threads) {
         threads.forEach(t => {
           router.addRoute({
             path: `/thread/${t.id}`,
@@ -47,7 +47,17 @@
             }
           })
         })
-      })
+      }
+
+      if (this.$store.state.threads.length === 0) {
+        this.get('/thread/list', (data) => {
+          let threads = data.data.threads
+          this.$store.commit('threads', threads)
+          addRoutes(threads)
+        })
+      } else {
+        addRoutes(this.$store.state.threads)
+      }
     }
   }
 </script>

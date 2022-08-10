@@ -22,11 +22,12 @@ export default {
           { account, password },
           (data) => {
             if (data.code === 200) {
+              console.log(`login data:`, data.data)
               let account = {
                 is_logined: true,
                 is_admin: data.data.is_admin,
                 username: data.data.username,
-                user_id: data.data.user_id,
+                id: data.data.id,
                 email: data.data.email,
                 message_amount_num: 0
               }
@@ -34,6 +35,7 @@ export default {
               localStorage.setItem('account', JSON.stringify(account))
               this.$store.commit('account', account)
               this.msg('is-success', `欢迎回来，${data.data.username}！`)
+              console.log(`user_id: ${data.data.id}`)
               this.$router.push('/threads')
             } else {
               this.msg('is-danger', data.message)
@@ -65,11 +67,12 @@ export default {
                 is_logined: true,
                 is_admin: data.data.is_admin,
                 username: data.data.username,
-                user_id: data.data.user_id,
+                id: data.data.id,
                 email: data.data.email,
                 message_amount_num: 0
               })
               this.msg('is-success', '注册成功！')
+              console.log(`user_id: ${data.data.id}`)
               this.$router.push('/threads')
             } else {
               this.msg('is-danger', data.message)
@@ -86,11 +89,12 @@ export default {
         is_logined: false,
         is_admin: false,
         username: '',
-        user_id: '',
+        id: '',
         email: '',
         message_amount_num: 0
       })
       this.msg('is-success', '退出登录成功！')
+      this.$router.push('/threads')
     }
   }
 }
