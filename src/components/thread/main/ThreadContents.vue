@@ -25,14 +25,6 @@
                 {{ get_date_with_timestamp(d.timestamp) }}
               </b-tag>
               <b-tag
-              type="is-warning is-light"
-              v-if="!$device.mobile"
-              class="thread-tag"
-              size="is-small">
-                <b-icon icon="thumbs-up"></b-icon>{{ d.evaluation.like }}
-                <b-icon icon="thumbs-down"></b-icon>{{ d.evaluation.dislike }}
-              </b-tag>
-              <b-tag
               type="is-dark"
               v-if="!$device.mobile"
               class="thread-tag"

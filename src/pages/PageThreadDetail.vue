@@ -4,7 +4,6 @@
     <DetailBreadcrumb ref="breadcrumb"></DetailBreadcrumb>
     <DetailInfo ref="info"></DetailInfo>
     <DetailContent ref="content"></DetailContent>
-    <DetailEvaluation ref="evaluation"></DetailEvaluation>
   </div>
 </template>
 
@@ -12,16 +11,15 @@
   import DetailBreadcrumb from '@/components/thread/detail/DetailBreadcrumb.vue'
   import DetailInfo from '@/components/thread/detail/DetailInfo.vue'
   import DetailContent from '@/components/thread/detail/DetailContent.vue'
-  import DetailEvaluation from '@/components/thread/detail/DetailEvaluation.vue'
   import request from '@/mixins/request.js'
   
   export default {
     name: 'PageThreadDetail',
     components: {
-      DetailBreadcrumb, DetailInfo, DetailContent, DetailEvaluation
+      DetailBreadcrumb, DetailInfo, DetailContent
     },
     mixins: [request],
-    props: ['thread_id', 'title', 'evaluation'],
+    props: ['thread_id', 'title'],
     data() {
       return {
         is_loading: true
@@ -34,7 +32,6 @@
       let refs = this.$refs
       refs.breadcrumb.update(find.title, find.id)
       refs.info.update(find)
-      refs.evaluation.update(find.id, find.evaluation.like, find.evaluation.dislike)
 
       let contents = this.$store.state.thread_contents
       let find_content = contents.find((s) => s.id === find.id)

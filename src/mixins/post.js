@@ -92,8 +92,7 @@ export default {
               component: PageThreadDetail,
               props: {
                 thread_id: t.id,
-                title: t.title,
-                evaluation: t.evaluation
+                title: t.title
               }
             })
             this.$router.push(`/thread/${t.id}`)

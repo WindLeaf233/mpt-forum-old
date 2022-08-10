@@ -17,22 +17,6 @@ export default {
       var id = thread.getAttribute('id')
       let thread_id = id.replace('thread', '')
       this.$router.push(`/thread/${thread_id}`)
-    },
-    
-    thumbs_up(id) {
-      this.$buefy.snackbar.open({
-        message: `顶 ${this.get_thread_with_id(id).title} 成功!`,
-        type: 'is-success',
-        position: 'is-top'
-      })
-    },
-    
-    thumbs_down(id) {
-      this.$buefy.snackbar.open({
-        message: `踩 ${this.get_thread_with_id(id).title} 成功!`,
-        type: 'is-danger',
-        position: 'is-top'
-      })
     }
   }
 }
