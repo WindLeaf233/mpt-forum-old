@@ -16,7 +16,8 @@ export default new Vuex.Store({
         message_amount_num: 0
       },
       threads: [],
-      thread_contents: []
+      thread_contents: [],
+      debug_mode: false
     }
   },
   mutations: {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
 
     threads(state, threads) {
       state.threads = threads
+    },
+
+    debug_mode(state, debug_mode) {
+      state.debug_mode = debug_mode
     }
   }
 })

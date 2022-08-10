@@ -9,7 +9,7 @@ export default {
     },
 
     debug(...message) {
-      if (process.env.NODE_ENV === 'development') {
+      if (process.env.NODE_ENV === 'development' || this.$store.state.debug_mode) {
         console.log(...message)
       }
     }

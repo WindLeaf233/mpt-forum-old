@@ -35,6 +35,12 @@
     created() {
       this.debug(`process.env`, process.env)
 
+      Object.defineProperty(window, 'set_debug_mode', {
+        value: (value) => {
+          this.$store.commit('debug_mode', value)
+        }
+      })
+
       function addRoutes(threads) {
         threads.forEach(t => {
           router.addRoute({
