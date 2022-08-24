@@ -93,7 +93,10 @@ export default {
         username: '',
         id: '',
         email: '',
-        message_amount_num: 0
+        message_amount_num: 0,
+        evaluations: {
+          like: [], dislike: []
+        }
       })
       this.msg('is-success', '退出登录成功！')
       this.$router.push('/threads')
