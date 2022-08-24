@@ -22,20 +22,23 @@ export default {
           (data) => {
             if (data.code === 200) {
               this.debug(`login data:`, data.data)
-              let account = {
-                is_logined: true,
-                is_admin: data.data.is_admin,
-                username: data.data.username,
-                id: data.data.id,
-                email: data.data.email,
-                message_amount_num: 0
-              }
-              // 保存到 localStorage，实现保持登录
-              localStorage.setItem('account', JSON.stringify(account))
-              this.$store.commit('account', account)
-              this.msg('is-success', `欢迎回来，${data.data.username}！`)
-              this.debug(`user_id: ${data.data.id}`)
-              this.$router.push('/threads')
+              this.get(`/user/get_evaluations/${data.data.id}`, (eva_data) => {
+                let account = {
+                  is_logined: true,
+                  is_admin: data.data.is_admin,
+                  username: data.data.username,
+                  id: data.data.id,
+                  email: data.data.email,
+                  message_amount_num: 0,
+                  evaluations: eva_data.data.evaluations
+                }
+                // 保存到 localStorage，实现保持登录
+                localStorage.setItem('account', JSON.stringify(account))
+                this.$store.commit('account', account)
+                this.msg('is-success', `欢迎回来，${data.data.username}！`)
+                this.debug(`user_id: ${data.data.id}`)
+                this.$router.push('/threads')
+              })
             } else {
               this.msg('is-danger', data.message)
             }

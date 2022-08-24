@@ -13,7 +13,10 @@ export default new Vuex.Store({
         username: '',
         email: '',
         id: '',
-        message_amount_num: 0
+        message_amount_num: 0,
+        evaluations: {
+          like: [], dislike: []
+        }
       },
       threads: [],
       thread_contents: [],
