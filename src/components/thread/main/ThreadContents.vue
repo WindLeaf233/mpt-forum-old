@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="section-content" :style="`padding-top: ${$device.mobile ? 5 : 2}%;`">
-      <article class="media" v-for="(d, index) in page_elements" :key="index + 1" :id="`thread${d.id}`">
+      <article class="media" v-for="(d, index) in threads" :key="index + 1" :id="`thread${d.id}`">
         <div class="media-content" @click="view_thread_detail($event)">
           <div class="content a-border">
             <div class="buttons a-title">
@@ -54,31 +54,40 @@
   import selector from '@/mixins/selector.js'
   import thread from '@/mixins/thread.js'
   import timestamp from '@/mixins/timestamp.js'
+  import request from '@/mixins/request.js'
   
   const type_options = require('@/data/selector/type_options.json')
   const version_options = require('@/data/selector/version_options.json')
   
   export default {
     name: 'ThreadContents',
-    mixins: [tag, selector, thread, timestamp],
+    mixins: [tag, selector, thread, timestamp, request],
     props: ['page_elements'],
     data() {
       return {
         type_options,
         version_options,
         selector: {
-          filter: {
-            type: 'all',
-            version: 'all'
-          },
+          type: 'all',
+          version: 'all',
           sort: 'time'
-        }
+        },
+        threads: []
       }
     },
     methods: {
       update_selector(selector) {
         this.selector = selector
+        this.post('/thread/list', selector, (data) => {
+          let ts = data.data.threads
+          this.$store.commit('threads', ts)
+          this.threads = ts
+        })
       }
+    },
+    mounted() {
+      this.threads = this.page_elements
+      this.update_selector(this.selector)
     }
   }
 </script>

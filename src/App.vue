@@ -65,7 +65,7 @@
       let threads = this.$store.state.threads
       console.log('1', threads, threads.length, threads.length === 0)
       if (threads.length === 0) {
-        this.get('/thread/list', (data) => {
+        this.post('/thread/list', { type: 'all', version: 'all', sort: 'time' }, (data) => {
           let ts = data.data.threads
           this.$store.commit('threads', ts)
           addRoutes(ts)

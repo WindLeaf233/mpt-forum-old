@@ -47,7 +47,7 @@
       let threads = this.$store.state.threads
       console.log('2', threads, threads.length, threads.length === 0)
       if (threads.length === 0) {
-        this.get('/thread/list', (data) => {
+        this.post('/thread/list', { type: 'all', version: 'all', sort: 'time' }, (data) => {
           this.threads = data.data.threads
           for (let thread of this.threads) {
             threads.push(thread)

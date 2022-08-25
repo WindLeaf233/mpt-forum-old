@@ -72,6 +72,8 @@
         </div>
       </b-dropdown-item>
     </b-dropdown>
+
+    <b-button class="submit" type="is-info" @click="select()">筛选</b-button>
   </section>
 </template>
 
@@ -100,52 +102,40 @@
       current_tag_type: {
         handler(new_value, old_value) {
           console.log(`type: ${old_value} -> ${new_value}`)
-          this.$emit('update', {
-            selector: {
-              filter: {
-                type: new_value,
-                version: this.current_tag_version
-              },
-              sort: this.current_sort
-            }
-          })
         }
       },
       current_tag_version: {
         handler(new_value, old_value) {
           console.log(`version: ${old_value} -> ${new_value}`)
-          this.$emit('update', {
-            selector: {
-              filter: {
-                type: this.current_tag_type,
-                version: new_value
-              },
-              sort: this.current_sort
-            }
-          })
         }
       },
       current_sort: {
         handler(new_value, old_value) {
           console.log(`sort: ${old_value} -> ${new_value}`)
-          this.$emit('update', {
-            selector: {
-              filter: {
-                type: this.current_tag_type,
-                version: this.current_tag_version
-              },
-              sort: new_value
-            }
-          })
         }
+      }
+    },
+    methods: {
+      select() {
+        this.$emit('update', {
+          selector: {
+            type: this.current_tag_type,
+            version: this.current_tag_version,
+            sort: this.current_sort
+          }
+        })
       }
     }
   }
 </script>
 
 <style scoped>
-  .section-tag-selector {
-    padding-top: 2%;
-    padding-inline: 5%;
-  }
+.section-tag-selector {
+  padding-top: 2%;
+  padding-inline: 5%;
+}
+
+.submit {
+  margin-left: 2%;
+}
 </style>
