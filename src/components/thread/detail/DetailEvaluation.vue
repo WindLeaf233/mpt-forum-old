@@ -2,18 +2,18 @@
   <div class="evaluation">
     <b-button
     class="evaluation-thumbs"
-    :outlined="!is_evaluated"
+    :outlined="!is_liked"
     type="is-success"
     icon-left="thumbs-up"
-    @click="thumbs_up(thread_id)">顶（{{ like }}）
+    @click="thumbs_up(thread_id, update_status)">顶（{{ like }}）
     </b-button>
 
     <b-button
     class="evaluation-thumbs"
-    :outlined="!is_evaluated"
+    :outlined="!is_disliked"
     type="is-danger"
     icon-left="thumbs-down"
-    @click="thumbs_down(thread_id)">踩（{{ dislike }}）
+    @click="thumbs_down(thread_id, update_status)">踩（{{ dislike }}）
     </b-button>
   </div>
 </template>
@@ -27,9 +27,10 @@
     data() {
       return {
         thread_id: '',
-        like: '',
-        dislike: '',
-        is_evaluated: false
+        like: 0,
+        dislike: 0,
+        is_liked: false,
+        is_disliked: false
       }
     },
     methods: {
@@ -46,6 +47,16 @@
         console.log(evaluations, this.contains(evaluations.like, this.thread_id), this.contains(evaluations.dislike, this.thread_id))
         if (this.contains(evaluations.like, this.thread_id) || this.contains(evaluations.dislike, this.thread_id)) {
           this.is_evaluated = true
+        }
+      },
+
+      update_status(type) {
+        if (type === 'like') {
+          this.like = this.like + 1
+          this.is_liked = true
+        } else {
+          this.dislike = this.dislike + 1
+          this.is_disliked = true
         }
       }
     }

@@ -37,12 +37,13 @@ export default {
       return is_logined
     },
 
-    thumbs_up(id) {
+    thumbs_up(id, update_status) {
       if (this.check_login()) {
         let instance = this.set_loading(null)
         this.post(`/thread/post_evaluation`, { thread_id: id, user_id: this.$store.state.account.id, type: 'like' }, (data) => {
           if (data.code == 200) {
             this.msg('is-success', `顶帖子（ID：${id}）成功!`)
+            update_status('like')
           } else {
             this.msg('is-danger', data.message)
           }
@@ -51,12 +52,13 @@ export default {
       }
     },
 
-    thumbs_down(id) {
+    thumbs_down(id, update_status) {
       if (this.check_login()) {
         let instance = this.set_loading(null)
-        this.post(`/thread/post_evaluation`, { thread_id: id, user_id: this.$store.state.account.id, type: 'like' }, (data) => {
+        this.post(`/thread/post_evaluation`, { thread_id: id, user_id: this.$store.state.account.id, type: 'dislike' }, (data) => {
           if (data.code == 200) {
             this.msg('is-success', `踩帖子（ID：${id}）成功!`)
+            update_status('dislike')
           } else {
             this.msg('is-danger', data.message)
           }
