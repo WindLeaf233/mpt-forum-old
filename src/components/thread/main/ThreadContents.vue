@@ -98,6 +98,7 @@
 
 .content {
   height: 116px;
+  line-height: 20px;
 }
 
 .content:active {
