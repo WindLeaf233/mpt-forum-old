@@ -91,6 +91,7 @@
 
 <style scoped>
   .active {
-    border-bottom: 3px solid rgb(177, 177, 177);
+    font-weight: bold;
+    color: #7957d5;
   }
 </style>

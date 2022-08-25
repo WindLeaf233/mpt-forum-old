@@ -107,9 +107,7 @@
 }
 
 .content:hover .thread-title {
-  color: #12aaaa;
-  text-decoration: underline;
-  text-decoration-style: dotted;
+  color: #7957d5;
 }
 
 .thread-title {
