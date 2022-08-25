@@ -22,10 +22,17 @@
         let to_path = to.path
         let from_path = from.path
         this.$store.commit('actived', to_path)
-        this.debug(`route: ${from_path} -> ${to_path}`)
+        console.log(`route: ${from_path} -> ${to_path}`)
       }
     },
     beforeMount() {
+      let true_console_log = console.log
+      window.console.log = (message, ...optional_params) => {
+        if (process.env.NODE_ENV === 'development' || this.$store.state.debug_mode) {
+          true_console_log(message, ...optional_params)
+        }
+      }
+
       let account = JSON.parse(localStorage.getItem('account'))
       if (account !== null) {
         // 不为 null 说明 localStorage 存储着登录信息
@@ -33,7 +40,7 @@
       }
     },
     created() {
-      this.debug(`process.env`, process.env)
+      console.log(`process.env`, process.env)
 
       Object.defineProperty(window, 'set_debug_mode', {
         value: (value) => {
@@ -56,7 +63,7 @@
       }
 
       let threads = this.$store.state.threads
-      this.debug('1', threads, threads.length, threads.length === 0)
+      console.log('1', threads, threads.length, threads.length === 0)
       if (threads.length === 0) {
         this.get('/thread/list', (data) => {
           let ts = data.data.threads

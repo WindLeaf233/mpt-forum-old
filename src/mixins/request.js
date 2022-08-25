@@ -10,7 +10,7 @@ export default {
       let api = `${process.env.VUE_APP_API}${api_route}`
       await axios.get(api)
         .then((response) => {
-          this.debug(`GET: ${api}`, response.data)
+          console.log(`GET: ${api}`, response.data)
           todo(response.data)
         }).catch((error) => { this.catch_error(error) })
     },
@@ -19,7 +19,7 @@ export default {
       let api = `${process.env.VUE_APP_API}${api_route}`
       await axios.post(api, _data)
         .then((response) => {
-          this.debug(`POST: ${api}`, response.data)
+          console.log(`POST: ${api}`, response.data)
           todo(response.data)
         }).catch((error) => { this.catch_error(error) })
     }

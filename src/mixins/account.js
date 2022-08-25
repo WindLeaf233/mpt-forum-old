@@ -21,7 +21,7 @@ export default {
           { account, password },
           (data) => {
             if (data.code === 200) {
-              this.debug(`login data:`, data.data)
+              console.log(`login data:`, data.data)
               this.get(`/user/get_evaluations/${data.data.id}`, (eva_data) => {
                 let account = {
                   is_logined: true,
@@ -36,7 +36,7 @@ export default {
                 localStorage.setItem('account', JSON.stringify(account))
                 this.$store.commit('account', account)
                 this.msg('is-success', `欢迎回来，${data.data.username}！`)
-                this.debug(`user_id: ${data.data.id}`)
+                console.log(`user_id: ${data.data.id}`)
                 this.$router.push('/threads')
               })
             } else {
@@ -74,7 +74,7 @@ export default {
                 message_amount_num: 0
               })
               this.msg('is-success', '注册成功！')
-              this.debug(`user_id: ${data.data.id}`)
+              console.log(`user_id: ${data.data.id}`)
               this.$router.push('/threads')
             } else {
               this.msg('is-danger', data.message)

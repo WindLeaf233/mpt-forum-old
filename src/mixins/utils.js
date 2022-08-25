@@ -6,12 +6,6 @@ export default {
         type,
         position: 'is-top'
       })
-    },
-
-    debug(...message) {
-      if (process.env.NODE_ENV === 'development' || this.$store.state.debug_mode) {
-        console.log(...message)
-      }
     }
   }
 }

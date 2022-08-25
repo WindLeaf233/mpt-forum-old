@@ -45,7 +45,7 @@
     },
     created() {
       let threads = this.$store.state.threads
-      this.debug('2', threads, threads.length, threads.length === 0)
+      console.log('2', threads, threads.length, threads.length === 0)
       if (threads.length === 0) {
         this.get('/thread/list', (data) => {
           this.threads = data.data.threads

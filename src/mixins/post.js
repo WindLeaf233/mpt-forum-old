@@ -80,7 +80,7 @@ export default {
           content,
           timestamp: Date.now()
         }
-        this.debug(`post data:`, post_data)
+        console.log(`post data:`, post_data)
         this.post('/thread/post', post_data, (data) => {
           if (data.code === 200) {
             this.msg('is-success', '发帖成功！')
