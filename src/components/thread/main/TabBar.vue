@@ -127,7 +127,7 @@
       },
       current_sort: {
         handler(new_value, old_value) {
-          this.debug(`sort: ${old_value} -> ${new_value}`)
+          console.log(`sort: ${old_value} -> ${new_value}`)
           this.$emit('update', {
             selector: {
               filter: {
