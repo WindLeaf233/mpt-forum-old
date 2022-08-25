@@ -42,7 +42,7 @@ export default {
         let instance = this.set_loading(null)
         this.post(`/thread/post_evaluation`, { thread_id: id, user_id: this.$store.state.account.id, type: 'like' }, (data) => {
           if (data.code == 200) {
-            this.msg('is-success', '顶帖子（ID：${id}）成功!')
+            this.msg('is-success', `顶帖子（ID：${id}）成功!`)
           } else {
             this.msg('is-danger', data.message)
           }
@@ -56,7 +56,7 @@ export default {
         let instance = this.set_loading(null)
         this.post(`/thread/post_evaluation`, { thread_id: id, user_id: this.$store.state.account.id, type: 'like' }, (data) => {
           if (data.code == 200) {
-            this.msg('is-success', '踩帖子（ID：${id}）成功!')
+            this.msg('is-success', `踩帖子（ID：${id}）成功!`)
           } else {
             this.msg('is-danger', data.message)
           }
