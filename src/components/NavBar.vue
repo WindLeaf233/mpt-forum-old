@@ -38,8 +38,8 @@
         <b-navbar-item v-if="$store.state.account.is_logined">
           <b-button icon-left="plus" tag="router-link" to="/post">发帖</b-button>
         </b-navbar-item>
-        <b-navbar-item href="/inbox" v-if="$store.state.account.is_logined">
-          <b-button icon-left="inbox" :type="get_inbox_btn_type()">消息 {{ $store.state.account.message_amount }}</b-button>
+        <b-navbar-item href="#" v-if="$store.state.account.is_logined">
+          <b-button disabled icon-left="inbox" :type="get_inbox_btn_type()">消息 {{ $store.state.account.message_amount }}</b-button>
         </b-navbar-item>
         <b-navbar-item tag="div">
           <div class="buttons">

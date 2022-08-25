@@ -52,11 +52,12 @@
           for (let thread of this.threads) {
             threads.push(thread)
           }
+          this.is_loading = false
         })
       } else {
         this.threads = threads
+        this.is_loading = false
       }
-      this.is_loading = false
     }
   }
 </script>
