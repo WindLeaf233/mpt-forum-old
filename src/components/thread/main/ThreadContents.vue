@@ -18,12 +18,16 @@
               size="is-medium">
                 {{ find_text_with_value(version_options, d.tags.version) }}
               </b-tag>
+              <strong class="thread-title">{{ d.title }}</strong>
+            </div>
+            <div class="a-title">
               <b-tag
-              class="thread-tag"
+              type="is-success is-light"
               v-if="!$device.mobile"
-              size="is-medium">
-                {{ get_date_with_timestamp(d.timestamp) }}
+              size="is-small">
+                ID: {{ d.userinfo.id }}
               </b-tag>
+              {{ d.userinfo.username }} - {{ get_date_with_timestamp(d.timestamp) }}
               <b-tag
               type="is-warning is-light"
               v-if="!$device.mobile"
@@ -32,14 +36,6 @@
                 <b-icon icon="thumbs-up"></b-icon>{{ d.evaluations.like.length }}
                 <b-icon icon="thumbs-down"></b-icon>{{ d.evaluations.dislike.length }}
               </b-tag>
-              <b-tag
-              type="is-dark"
-              v-if="!$device.mobile"
-              class="thread-tag"
-              size="is-medium">
-                {{ d.userinfo.username }}
-              </b-tag>
-              <strong class="thread-title">{{ d.title }}</strong>
             </div>
             <div class="a-content">
               <p>
@@ -88,53 +84,71 @@
 </script>
 
 <style scoped>
-  .thread-tag {
-    height: 25px;
-    width: 50px;
-    display: table-cell;
-    vertical-align: middle;
-  }
-  
-  .content {
-    height: 116px;
-  }
-  
-  .thread-title {
-    padding: 5px;
-  }
-  
-  .a-title {
-    display: table;
-    width: 100%;
-  }
-  
-  .section-content {
-    padding-inline: 5%;
-  }
-  
-  .a-content {
-    white-space: normal;
-    word-break: break-all;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-  
-  .media-content::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .thread-date {
-    text-align: right;
-  }
-  
-  .a-border {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 13px;
-  }
+* {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.thread-tag {
+  height: 25px;
+  width: 50px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.content {
+  height: 116px;
+}
+
+.content:active {
+  background-color: white;
+  filter: alpha(opacity=60);
+  opacity: 0.8;
+}
+
+.content:hover .thread-title {
+  color: #12aaaa;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.thread-title {
+  padding: 5px;
+}
+
+.a-title {
+  display: table;
+  width: 100%;
+}
+
+.section-content {
+  padding-inline: 5%;
+}
+
+.a-content {
+  white-space: normal;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: gray;
+}
+
+.media-content::-webkit-scrollbar {
+  display: none;
+}
+
+.thread-date {
+  text-align: right;
+}
+
+.a-border {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 13px;
+}
 </style>
