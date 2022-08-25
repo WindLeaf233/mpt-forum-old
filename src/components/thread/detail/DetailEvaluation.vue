@@ -51,6 +51,23 @@
       },
 
       update_status(type) {
+        let threads = this.$store.state.threads
+        for (let thread of threads) {
+          if (thread.id === this.thread_id) {
+            let eva = thread.evaluations
+            let user_id = this.$store.state.account.id
+            console.log(type, thread, eva)
+            if (type === 'like') {
+              eva.like.push(user_id)
+            } else {
+              eva.dislike.push(user_id)
+            }
+            console.log(eva)
+            this.$store.commit('threads', threads)
+            console.log(this.$store.state.threads)
+          }
+        }
+
         if (type === 'like') {
           this.like = this.like + 1
           this.is_liked = true
