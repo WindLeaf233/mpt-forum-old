@@ -74,6 +74,7 @@
     </b-dropdown>
 
     <b-button class="submit" type="is-info" @click="select()">筛选</b-button>
+    <b-button class="submit" type="is-success is-light" @click="clear_selector()">取消筛选</b-button>
   </section>
 </template>
 
@@ -125,6 +126,15 @@
         }
         this.$emit('update', { selector })
         this.$store.commit('selector', selector)
+      },
+
+      clear_selector() {
+        let empty = { type: 'all', version: 'all', sort: 'time' }
+        this.current_tag_type = 'all'
+        this.current_tag_version = 'all'
+        this.current_sort = 'time'
+        this.$emit('update', { selector: empty })
+        this.$store.commit('selector', empty)
       }
     },
     mounted() {
@@ -143,6 +153,6 @@
 }
 
 .submit {
-  margin-left: 2%;
+  margin-left: 1%;
 }
 </style>
