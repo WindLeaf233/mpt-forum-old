@@ -117,14 +117,21 @@
     },
     methods: {
       select() {
-        this.$emit('update', {
-          selector: {
-            type: this.current_tag_type,
-            version: this.current_tag_version,
-            sort: this.current_sort
-          }
-        })
+        console.log('selector selected')
+        let selector = {
+          type: this.current_tag_type,
+          version: this.current_tag_version,
+          sort: this.current_sort
+        }
+        this.$emit('update', { selector })
+        this.$store.commit('selector', selector)
       }
+    },
+    mounted() {
+      let selector = this.$store.state.selector
+      this.current_tag_type = selector.type
+      this.current_tag_version = selector.version
+      this.current_sort = selector.sort
     }
   }
 </script>

@@ -20,6 +20,11 @@ export default new Vuex.Store({
       },
       threads: [],
       thread_contents: [],
+      selector: {
+        type: 'all',
+        version: 'all',
+        sort: 'time'
+      },
       debug_mode: false
     }
   },
@@ -34,6 +39,10 @@ export default new Vuex.Store({
 
     threads(state, threads) {
       state.threads = threads
+    },
+
+    selector(state, selector) {
+      state.selector = selector
     },
 
     debug_mode(state, debug_mode) {

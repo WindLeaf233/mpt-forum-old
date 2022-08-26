@@ -80,6 +80,7 @@
         this.selector = selector
         this.post('/thread/list', selector, (data) => {
           let ts = data.data.threads
+          console.log('updating selector, reloaded', selector, ts)
           this.$store.commit('threads', ts)
           this.threads = ts
         })
@@ -87,7 +88,7 @@
     },
     mounted() {
       this.threads = this.page_elements
-      this.update_selector(this.selector)
+      // this.update_selector(this.selector)
     }
   }
 </script>
