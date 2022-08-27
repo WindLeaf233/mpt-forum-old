@@ -35,6 +35,7 @@ export default {
                 // 保存到 localStorage，实现保持登录
                 localStorage.setItem('account', JSON.stringify(account))
                 this.$store.commit('account', account)
+                this.$store.commit('token', data.data.token)
                 this.msg('is-success', `欢迎回来，${data.data.username}！`)
                 console.log(`user_id: ${data.data.id}`)
                 this.$router.push('/threads')
@@ -73,6 +74,7 @@ export default {
                 email: data.data.email,
                 message_amount_num: 0
               })
+              this.$store.commit('token', data.data.token)
               this.msg('is-success', '注册成功！')
               console.log(`user_id: ${data.data.id}`)
               this.$router.push('/threads')
@@ -85,19 +87,7 @@ export default {
     },
     
     user_logout() {
-      // 清除 localStorage
-      localStorage.clear()
-      this.$store.commit('account', {
-        is_logined: false,
-        is_admin: false,
-        username: '',
-        id: '',
-        email: '',
-        message_amount_num: 0,
-        evaluations: {
-          like: [], dislike: []
-        }
-      })
+      this.clear_data()
       this.msg('is-success', '退出登录成功！')
       this.$router.push('/threads')
     }

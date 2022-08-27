@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state() {
     return {
       actived: '/',
+      token: '',
       account: {
         is_logined: false,
         is_admin: false,
@@ -47,6 +48,10 @@ export default new Vuex.Store({
 
     debug_mode(state, debug_mode) {
       state.debug_mode = debug_mode
+    },
+
+    token(state, token) {
+      state.token = token
     }
   }
 })

@@ -9,14 +9,16 @@ export default {
   methods: {
     check_submit(data, that) {
       that.update_is_loading(true)
-      var flag = true;
+      var flag = true
 
       // 检查登录状态
       let is_logined = this.$store.state.account.is_logined
       if (!is_logined) {
+        this.$router.push('/auth')
         this.msg('is-danger', '你还没登录呢！')
         flag = false
         that.update_is_loading(false)
+        return
       }
       
       // 检查标题
@@ -26,10 +28,12 @@ export default {
         this.msg('is-warning', `标题的字数不能超过 ${max} 字！`)
         flag = false
         that.update_is_loading(false)
+        return
       } else if (title === '' || title === undefined || title === null) {
         this.msg('is-danger', '请输入标题！')
         flag = false
         that.update_is_loading(false)
+        return
       }
       
       // 检查选择器
@@ -38,6 +42,7 @@ export default {
         this.msg('is-danger', '请选择类型和版本！')
         flag = false
         that.update_is_loading(false)
+        return
       }
       
       // 检查内容
@@ -47,6 +52,7 @@ export default {
         this.msg('is-danger', '请输入相关的需求内容！')
         flag = false
         that.update_is_loading(false)
+        return
       }
       
       // 检查注意事项
@@ -55,6 +61,7 @@ export default {
         this.msg('is-warning', '请勾选注意事项！')
         flag = false
         that.update_is_loading(false)
+        return
       }
       
       // 检查简介
@@ -104,7 +111,6 @@ export default {
           }
         })
       }
-      
     }
   }
 }
